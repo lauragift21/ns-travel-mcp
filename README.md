@@ -1,50 +1,127 @@
-# Building a Remote MCP Server on Cloudflare (Without Auth)
+# NS Travel MCP Server 
 
-This example allows you to deploy a remote MCP server that doesn't require authentication on Cloudflare Workers. 
+This MCP server provides real-time Dutch Railways (NS) data for journey planning, live departures, disruptions, and station search.
 
-## Get started: 
+## Features
 
-[![Deploy to Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/ai/tree/main/demos/remote-mcp-authless)
+1. **Journey Planning** - Plan optimal routes between stations with real-time updates
+2. **Live Departures** - Get real-time departure boards for any station  
+3. **Disruption Alerts** - Check service disruptions and maintenance work
+4. **Station Search** - Find stations with auto-suggestions
 
-This will deploy your MCP server to a URL like: `remote-mcp-server-authless.<your-account>.workers.dev/sse`
+## Prerequisites
 
-Alternatively, you can use the command line below to get the remote MCP Server created on your local machine:
+1. **NS API Key**: Get your free API key from [NS API Portal](https://apiportal.ns.nl/)
+   - Sign up for an account
+   - Subscribe to the "NS App" product (free)
+   - Copy your subscription key
+
+2. **Cloudflare Account**: Sign up at [Cloudflare](https://cloudflare.com)
+
+3. **Wrangler CLI**: Install globally
+   ```bash
+   npm install -g wrangler
+   ```
+
+## Setup Instructions
+
+### 1. Clone and Install Dependencies
+
 ```bash
-npm create cloudflare@latest -- my-mcp-server --template=cloudflare/ai/demos/remote-mcp-authless
+# Create project directory
+git clone git@github.com:lauragift21/ns-travel-mcp.git
+cd ns-mcp-server
+
+# Install dependencies
+npm install
 ```
 
-## Customizing your MCP Server
+### 2. Set Environment Variables
 
-To add your own [tools](https://developers.cloudflare.com/agents/model-context-protocol/tools/) to the MCP server, define each tool inside the `init()` method of `src/index.ts` using `this.server.tool(...)`. 
+```bash
+# Set your NS API key as a secret
+npx wrangler secret put NS_API_KEY
+# Paste your NS API subscription key when prompted
+```
 
-## Connect to Cloudflare AI Playground
+### 4. Deploy
 
-You can connect to your MCP server from the Cloudflare AI Playground, which is a remote MCP client:
+```bash
+# Deploy to Cloudflare Workers
+npx wrangler deploy
 
-1. Go to https://playground.ai.cloudflare.com/
-2. Enter your deployed MCP server URL (`remote-mcp-server-authless.<your-account>.workers.dev/sse`)
-3. You can now use your MCP tools directly from the playground!
+# Your MCP server will be available at:
+# https://ns-travel-mcp.your-subdomain.workers.dev
+```
 
-## Connect Claude Desktop to your MCP server
+## Using with MCP Client (e.g Claude Desktop)
 
-You can also connect to your remote MCP server from local MCP clients, by using the [mcp-remote proxy](https://www.npmjs.com/package/mcp-remote). 
-
-To connect to your MCP server from Claude Desktop, follow [Anthropic's Quickstart](https://modelcontextprotocol.io/quickstart/user) and within Claude Desktop go to Settings > Developer > Edit Config.
-
-Update with this configuration:
+To use this MCP server with Claude Desktop, add it to your configuration:  `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
 ```json
 {
   "mcpServers": {
-    "calculator": {
+    "ns-mcp-server": {
       "command": "npx",
       "args": [
         "mcp-remote",
-        "http://localhost:8787/sse"  // or remote-mcp-server-authless.your-account.workers.dev/sse
-      ]
+        "https://your-deployment.workers.dev/sse"
+      ],
+      "env": {
+        "NS_API_KEY": "<YOUR_API_KEY"
+      }
     }
   }
 }
 ```
 
-Restart Claude and you should see the tools become available. 
+### Connect to Cloudflare AI Playground
+
+You can connect your MCP server from the Cloudflare AI Playground, which is a remote MCP client:
+
+- Go to https://playground.ai.cloudflare.com/
+- Enter your deployed MCP server URL (remote-mcp-server-authless.<your-account>.workers.dev/sse)
+- You can now use your MCP tools directly from the playground!
+
+
+## Common Use Cases
+
+- Daily Commute Planning
+- Check for Delays
+- Monitor Disruptions
+
+## Troubleshooting
+
+### Common Issues
+
+1. **API Key Error**: Ensure your NS API key is correctly set
+   ```bash
+   wrangler secret put NS_API_KEY
+   ```
+
+2. **Station Not Found**: Use exact station names or codes
+   - ✅ "Amsterdam Centraal" or "asd"
+   - ❌ "Amsterdam Central" or "amsterdam"
+
+3. **CORS Issues**: The server includes CORS headers for browser requests
+
+4. **Rate Limiting**: NS API has rate limits - implement caching if needed
+
+### Debug Mode
+```bash
+# Run locally for debugging
+npx wrangler dev
+
+# Check logs
+npx wrangler tail
+```
+
+## Resources
+
+- NS API Documentation: [apiportal.ns.nl](https://apiportal.ns.nl)
+- Cloudflare Workers: [developers.cloudflare.com](https://developers.cloudflare.com)
+- Model Context Protocol [modelcontextprotocol.io/introduction](https://modelcontextprotocol.io/introduction)
+
+## License
+
+MIT License - Feel free to modify and extend for your needs!
