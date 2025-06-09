@@ -44,6 +44,13 @@ npx wrangler secret put NS_API_KEY
 # Paste your NS API subscription key when prompted
 ```
 
+#### Local Development
+
+Create a `.dev.vars` file in the project root with your NS API key:
+
+```
+NS_API_KEY=your_ns_api_key
+```
 ### 4. Deploy
 
 ```bash
