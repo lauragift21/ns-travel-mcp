@@ -297,7 +297,6 @@ export interface FormattedStation {
 // Environment bindings for Cloudflare Workers
 export interface Env {
   NS_API_KEY?: string;
-  NS_KV?: KVNamespace;
 }
 
 export interface DeparturesParams {

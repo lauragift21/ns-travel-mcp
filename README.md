@@ -86,9 +86,50 @@ You can connect your MCP server from the Cloudflare AI Playground, which is a re
 
 ## Common Use Cases
 
-- Daily Commute Planning
-- Check for Delays
-- Monitor Disruptions
+### Basic Journey Planning
+```
+Plan my journey from Amsterdam Centraal to Utrecht Centraal tomorrow at 8:00 AM
+```
+
+### Weekend Travel
+```
+Plan a trip from Amsterdam Centraal to Rotterdam Centraal this Saturday at 2:00 PM. I want to see both earlier and later options.
+```
+
+### Route Impact Assessment
+```
+Are there any disruptions that would affect travel between Amsterdam and Utrecht?
+```
+
+### Planned vs Unplanned Issues
+```
+Show me both planned maintenance and unexpected disruptions happening today
+```
+
+### Find Stations
+```
+Find all train stations in Amsterdam
+```
+
+### Airport Connection
+```
+I'm flying into Schiphol at 3:00 PM. What's the best way to get to Amsterdam Centraal, and when should I expect to arrive?
+```
+
+### Event Planning
+```
+I have a meeting in Rotterdam at 10:00 AM. What time should I leave from Amsterdam Centraal to arrive on time?
+```
+
+### Emergency Alternatives
+```
+My usual train from Amsterdam to Utrecht is cancelled. What are my alternative options?
+```
+
+### Night Travel
+```
+What are the last trains from Amsterdam Centraal to Utrecht tonight?
+```
 
 ## Troubleshooting
 

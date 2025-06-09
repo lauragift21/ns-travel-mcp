@@ -153,42 +153,6 @@ export function formatStations(payload: any[]): FormattedStation[] {
 }
 
 /**
- * Create a standardized error response
- */
-export function createErrorResponse(message: string) {
-  return {
-    content: [
-      {
-        type: 'text',
-        text: `Error: ${message}`,
-      },
-    ],
-  };
-}
-
-/**
- * Create a successful MCP response with formatted data
- */
-export function createSuccessResponse(data: any) {
-  return {
-    content: [
-      {
-        type: 'text',
-        text: JSON.stringify(data, null, 2),
-      },
-    ],
-  };
-}
-
-/**
- * Validate NS API key format
- */
-export function isValidAPIKey(apiKey: string): boolean {
-  // NS API keys are typically 32 character hex strings
-  return /^[a-f0-9]{32}$/i.test(apiKey);
-}
-
-/**
  * Build NS API URL with parameters
  */
 export function buildNSApiUrl(endpoint: string, params: Record<string, string> = {}): string {

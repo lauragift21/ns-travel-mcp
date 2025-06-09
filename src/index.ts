@@ -2,8 +2,6 @@ import { McpAgent } from "agents/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import type {
-  Departure,
-  Disruption,
   Env,
   Journey,
   NSDeparturesResponse,
@@ -23,6 +21,7 @@ import {
 function getEnv<Env>() {
   return env as Env;
 }
+
 // Define our MCP agent with tools
 export class MyMCP extends McpAgent {
   server = new McpServer({
@@ -329,7 +328,6 @@ export default {
   fetch(request: Request, env: Env, ctx: ExecutionContext) {
     const url = new URL(request.url);
 
-    // Health check endpoint
     if (url.pathname === "/" && request.method === "GET") {
       return new Response("NS Travel MCP Server is running", {
         headers: { "Content-Type": "text/plain" },
