@@ -2,6 +2,8 @@
 
 This MCP server provides real-time Dutch Railways (NS) data for journey planning, live departures, disruptions, and station search.
 
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=<https://github.com/lauragift21/ns-travel-mcp>)
+
 ## Features
 
 1. **Journey Planning** - Plan optimal routes between stations with real-time updates
