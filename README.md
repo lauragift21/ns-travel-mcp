@@ -175,3 +175,7 @@ npx wrangler tail
 ## License
 
 MIT License - Feel free to modify and extend for your needs!
+
+---
+
+**Built with ❤️ by [Gift Egwuenu](https://github.com/lauragift21) | Powered by MCP & Cloudflare Workers**
